@@ -43,7 +43,7 @@
     const renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
-    
+
     // Store animation frame ID for cleanup
     let animationId;
 
@@ -270,5 +270,31 @@
         navToggle.classList.remove("active");
       })
     );
+  }
+
+  /* ========== MOBILE NAV HAMBURGER LOGIC ========== */
+  const navHamburger = document.getElementById("nav-hamburger");
+  const navMobileOverlay = document.getElementById("nav-mobile-overlay");
+  if (navHamburger && navMobileOverlay) {
+    navHamburger.addEventListener("click", () => {
+      navMobileOverlay.classList.toggle("active");
+      navHamburger.classList.toggle("active");
+    });
+    navMobileOverlay.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", () => {
+        navMobileOverlay.classList.remove("active");
+        navHamburger.classList.remove("active");
+      });
+    });
+    document.addEventListener("click", (e) => {
+      if (
+        navMobileOverlay.classList.contains("active") &&
+        !navMobileOverlay.contains(e.target) &&
+        e.target !== navHamburger
+      ) {
+        navMobileOverlay.classList.remove("active");
+        navHamburger.classList.remove("active");
+      }
+    });
   }
 })();
