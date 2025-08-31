@@ -14,23 +14,7 @@ self.addEventListener("install", (event) => {
       ]);
     })
   );
-self.addEventListener("install", (event) => {
-  event.waitUntil(
-    caches.open("fm-portfolio-v1").then((cache) => {
-      return cache.addAll([
-        "/",
-        "/index.html",
-        "/assets/css/styles.css",
-        "/assets/js/script.js",
-        "/manifest.json",
-        "/assets/images/icon-192.png",
-        "/assets/images/icon-512.png",
-        "/assets/images/favicon.ico",
-        "/offline.html",
-      ]).then(() => self.skipWaiting());
-    })
-  );
-});
+  self.skipWaiting();
 });
 
 self.addEventListener("activate", (event) => {
@@ -43,17 +27,7 @@ self.addEventListener("activate", (event) => {
       );
     })
   );
-self.addEventListener("activate", (event) => {
-  event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys
-          .filter((key) => key !== "fm-portfolio-v1")
-          .map((key) => caches.delete(key))
-      ).then(() => self.clients.claim());
-    })
-  );
-});
+  self.clients.claim();
 });
 
 self.addEventListener("fetch", (event) => {
@@ -71,8 +45,16 @@ self.addEventListener("fetch", (event) => {
       if (metaResponse) {
         lastAccess = parseInt(await metaResponse.text(), 10);
       }
-      if (cachedResponse && (!lastAccess || now - lastAccess <= maxAge)) {
-        // Cache is valid, update last access time
+      if (cachedResponse && lastAccess) {
+        if (now - lastAccess > maxAge) {
+          // Expired, do NOT return cachedResponse, force network fetch
+        } else {
+          // Update last access time
+          await metaCache.put(metaKey, new Response(now.toString()));
+          return cachedResponse;
+        }
+      } else if (cachedResponse) {
+        // No metadata, set it now
         await metaCache.put(metaKey, new Response(now.toString()));
         return cachedResponse;
       }
