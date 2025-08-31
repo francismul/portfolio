@@ -71,16 +71,8 @@ self.addEventListener("fetch", (event) => {
       if (metaResponse) {
         lastAccess = parseInt(await metaResponse.text(), 10);
       }
-      if (cachedResponse && lastAccess) {
-        if (now - lastAccess > maxAge) {
-          // Expired, do NOT return cachedResponse, force network fetch
-        } else {
-          // Update last access time
-          await metaCache.put(metaKey, new Response(now.toString()));
-          return cachedResponse;
-        }
-      } else if (cachedResponse) {
-        // No metadata, set it now
+      if (cachedResponse && (!lastAccess || now - lastAccess <= maxAge)) {
+        // Cache is valid, update last access time
         await metaCache.put(metaKey, new Response(now.toString()));
         return cachedResponse;
       }
