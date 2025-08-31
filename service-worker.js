@@ -14,7 +14,23 @@ self.addEventListener("install", (event) => {
       ]);
     })
   );
-  self.skipWaiting();
+self.addEventListener("install", (event) => {
+  event.waitUntil(
+    caches.open("fm-portfolio-v1").then((cache) => {
+      return cache.addAll([
+        "/",
+        "/index.html",
+        "/assets/css/styles.css",
+        "/assets/js/script.js",
+        "/manifest.json",
+        "/assets/images/icon-192.png",
+        "/assets/images/icon-512.png",
+        "/assets/images/favicon.ico",
+        "/offline.html",
+      ]).then(() => self.skipWaiting());
+    })
+  );
+});
 });
 
 self.addEventListener("activate", (event) => {
