@@ -43,6 +43,9 @@
     const renderer = new THREE.WebGLRenderer({ alpha: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     container.appendChild(renderer.domElement);
+    
+    // Store animation frame ID for cleanup
+    let animationId;
 
     // Particle geometry
     const vertices = [];
@@ -71,16 +74,26 @@
     camera.position.z = 500;
 
     function animate() {
-      requestAnimationFrame(animate);
+      animationId = requestAnimationFrame(animate);
       particles.rotation.y += 0.0005;
       renderer.render(scene, camera);
     }
     animate();
 
-    window.addEventListener("resize", () => {
+    const handleResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
+    };
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup function
+    window.addEventListener("beforeunload", () => {
+      cancelAnimationFrame(animationId);
+      geometry.dispose();
+      material.dispose();
+      renderer.dispose();
+      window.removeEventListener("resize", handleResize);
     });
   }
   initThree();
