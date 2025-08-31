@@ -332,7 +332,12 @@ nav {
 /* Projects Section */
 .projects-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(400px, 100%), 1fr));
+  gap: 40px;
+  margin-top: 50px;
+}
   gap: 40px;
   margin-top: 50px;
 }
