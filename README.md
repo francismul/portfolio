@@ -1,36 +1,27 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Francis Mule Portfolio
+
+A modern, interactive portfolio web app for Francis Mule, Software Engineer.
+
+## Features
+
+- **Three.js Animated Hero**: Eye-catching 3D particle background for the hero section.
+- **Custom Cursor & Matrix Rain**: Futuristic UI with animated cursor and Matrix-style rain effect.
+- **Responsive Navigation**: Hamburger menu with smooth transitions and overlay for mobile devices.
+- **Terminal Easter Egg**: Fun interactive terminal with commands (`help`, `skills`, `contact`, `clear`, `sudo hire_francis`).
+- **Section Reveal & Scroll Progress**: Animated section reveals and scroll progress bar for engaging navigation.
+- **Skills & Projects Showcase**: Cards for skills and projects, with tech tags and external links.
+- **Contact Section**: Easy access to email, LinkedIn, GitHub, and Twitter.
+- **Progressive Web App (PWA)**: Offline support, installable on devices, with manifest and service worker.
+- **Offline Fallback**: Custom offline page for seamless experience when disconnected.
+- **Dynamic Caching**: Service worker caches images, scripts, styles, and JSON APIs, with 30-day inactivity expiration.
+- **GitHub Pages CI/CD**: Automatic deployment via GitHub Actions on every push to `main`.
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository.
+2. Push changes to the `main` branch to auto-deploy via GitHub Actions.
+3. Access your portfolio at the GitHub Pages URL.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Built with HTML, CSS, JavaScript, and Three.js. Fully static and ready for GitHub Pages hosting.
