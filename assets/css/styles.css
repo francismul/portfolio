@@ -9,7 +9,17 @@ body {
   background: #0a0a0a;
   color: #ffffff;
   overflow-x: hidden;
-  cursor: none;
+body {
+  font-family: "JetBrains Mono", "Courier New", monospace;
+  background: #0a0a0a;
+  color: #ffffff;
+  overflow-x: hidden;
+  cursor: auto; /* Show default cursor as fallback */
+}
+
+body.custom-cursor-loaded {
+  cursor: none; /* Hide only when custom cursor is ready */
+}
 }
 
 /* Custom Cursor */
