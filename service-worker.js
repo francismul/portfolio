@@ -43,7 +43,17 @@ self.addEventListener("activate", (event) => {
       );
     })
   );
-  self.clients.claim();
+self.addEventListener("activate", (event) => {
+  event.waitUntil(
+    caches.keys().then((keys) => {
+      return Promise.all(
+        keys
+          .filter((key) => key !== "fm-portfolio-v1")
+          .map((key) => caches.delete(key))
+      ).then(() => self.clients.claim());
+    })
+  );
+});
 });
 
 self.addEventListener("fetch", (event) => {
