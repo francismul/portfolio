@@ -1,64 +1,54 @@
+const CACHE_VERSION = "v3";
+const CACHE_NAME = `fm-portfolio-${CACHE_VERSION}`;
 const BASE = "/portfolio";
 
+const ASSETS = [
+  `${BASE}/index.html`,
+  `${BASE}/assets/css/styles.css`,
+  `${BASE}/assets/js/script.js`,
+  `${BASE}/manifest.json`,
+  `${BASE}/assets/images/icon-192.png`,
+  `${BASE}/assets/images/icon-512.png`,
+  `${BASE}/assets/images/favicon.ico`,
+  `${BASE}/offline.html`,
+];
+
+// INSTALL – pre-cache assets
 self.addEventListener("install", (event) => {
   event.waitUntil(
-    caches.open("fm-portfolio-v1").then((cache) => {
-      return cache.addAll([
-        `${BASE}/index.html`,
-        `${BASE}/assets/css/styles.css`,
-        `${BASE}/assets/js/script.js`,
-        `${BASE}/manifest.json`,
-        `${BASE}/assets/images/icon-192.png`,
-        `${BASE}/assets/images/icon-512.png`,
-        `${BASE}/assets/images/favicon.ico`,
-        `${BASE}/offline.html`,
-      ]);
-    })
+    caches.open(CACHE_NAME).then((cache) => cache.addAll(ASSETS))
   );
   self.skipWaiting();
 });
 
+// ACTIVATE – clean up old caches + notify clients
 self.addEventListener("activate", (event) => {
   event.waitUntil(
-    caches.keys().then((keys) => {
-      return Promise.all(
-        keys
-          .filter((key) => key !== "fm-portfolio-v1")
-          .map((key) => caches.delete(key))
+    (async () => {
+      const keys = await caches.keys();
+      await Promise.all(
+        keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))
       );
-    })
+
+      // Claim clients immediately
+      await self.clients.claim();
+
+      // 🔔 Broadcast message to all open tabs
+      const clientsList = await self.clients.matchAll({ type: "window" });
+      clientsList.forEach((client) =>
+        client.postMessage({ type: "NEW_VERSION", version: CACHE_VERSION })
+      );
+    })()
   );
-  self.clients.claim();
 });
 
+// FETCH – stale-while-revalidate
 self.addEventListener("fetch", (event) => {
-  const url = event.request.url;
   event.respondWith(
     (async () => {
-      const assetCache = await caches.open("fm-portfolio-v1");
-      const metaCache = await caches.open("sw-metadata");
-      const cachedResponse = await assetCache.match(event.request);
-      const metaKey = new Request(event.request.url + "?sw-metadata");
-      const metaResponse = await metaCache.match(metaKey);
-      const now = Date.now();
-      const maxAge = 30 * 24 * 60 * 60 * 1000; // 30 days in ms
-      let lastAccess = 0;
-      if (metaResponse) {
-        lastAccess = parseInt(await metaResponse.text(), 10);
-      }
-      if (cachedResponse && lastAccess) {
-        if (now - lastAccess > maxAge) {
-          // Expired, do NOT return cachedResponse, force network fetch
-        } else {
-          // Update last access time
-          await metaCache.put(metaKey, new Response(now.toString()));
-          return cachedResponse;
-        }
-      } else if (cachedResponse) {
-        // No metadata, set it now
-        await metaCache.put(metaKey, new Response(now.toString()));
-        return cachedResponse;
-      }
+      const cache = await caches.open(CACHE_NAME);
+      const cached = await cache.match(event.request);
+
       try {
         const networkResponse = await fetch(event.request);
         if (
@@ -67,21 +57,15 @@ self.addEventListener("fetch", (event) => {
           (event.request.destination === "image" ||
             event.request.destination === "script" ||
             event.request.destination === "style" ||
-            event.request.url.includes("favicon.ico") ||
-            (event.request.destination === "" &&
-              event.request.headers.get("accept") &&
-              event.request.headers.get("accept").includes("application/json")))
+            event.request.destination === "document")
         ) {
-          assetCache.put(event.request, networkResponse.clone());
-          await metaCache.put(metaKey, new Response(now.toString()));
+          cache.put(event.request, networkResponse.clone());
         }
         return networkResponse;
       } catch (err) {
-        if (event.request.destination === "image") {
-          return assetCache.match("/assets/images/icon-192.png");
-        }
+        if (cached) return cached;
         if (event.request.destination === "document") {
-          return assetCache.match("/offline.html");
+          return cache.match(`${BASE}/offline.html`);
         }
       }
     })()
