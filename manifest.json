@@ -1,10 +1,13 @@
 {
   "name": "Francis Mule Portfolio",
   "short_name": "FM Portfolio",
-  "start_url": ".",
+  "start_url": "/portfolio",
   "display": "standalone",
   "background_color": "#0a0a0a",
+  "orientation": "portrait-primary",
+  "scope": "/portfolio",
   "theme_color": "#00ff88",
+  "lang": "en",
   "description": "Portfolio of Francis Mule - Software Engineer",
   "icons": [
     {
