@@ -1,16 +1,17 @@
+const BASE = "/portfolio";
+
 self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open("fm-portfolio-v1").then((cache) => {
       return cache.addAll([
-        "/portfolio",
-        "/index.html",
-        "/assets/css/styles.css",
-        "/assets/js/script.js",
-        "/manifest.json",
-        "/assets/images/icon-192.png",
-        "/assets/images/icon-512.png",
-        "/assets/images/favicon.ico",
-        "/offline.html",
+        `${BASE}/index.html`,
+        `${BASE}/assets/css/styles.css`,
+        `${BASE}/assets/js/script.js`,
+        `${BASE}/manifest.json`,
+        `${BASE}/assets/images/icon-192.png`,
+        `${BASE}/assets/images/icon-512.png`,
+        `${BASE}/assets/images/favicon.ico`,
+        `${BASE}/offline.html`,
       ]);
     })
   );
