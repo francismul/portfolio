@@ -2,7 +2,7 @@ self.addEventListener("install", (event) => {
   event.waitUntil(
     caches.open("fm-portfolio-v1").then((cache) => {
       return cache.addAll([
-        "/",
+        "/portfolio",
         "/index.html",
         "/assets/css/styles.css",
         "/assets/js/script.js",
