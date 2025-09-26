@@ -47,7 +47,7 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="hero" id="hero">
+    <!-- <section class="hero" id="hero">
       <div id="three-container"></div>
       <div class="hero-content">
         <div class="status-indicator">
@@ -60,7 +60,7 @@
         <p>Digital Architect • Code Poet • Future Builder</p>
         <a href="#about" class="cta-button">Enter the Matrix</a>
       </div>
-    </section>
+    </section> -->
 
     <!-- About Section -->
     <section class="section" id="about">
@@ -182,21 +182,10 @@
               and ensuring apps scale seamlessly.
             </p>
           </div>
-
-          <div class="skill-card">
-            <div class="skill-icon">🤖</div>
-            <h3>AI & Emerging Tech</h3>
-            <p>
-              Machine Learning • LLMs • TensorFlow • Computer Vision • Web3
-              (Solidity, Ethereum). Exploring the future of intelligence and
-              decentralization.
-            </p>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- Projects Section -->
     <!-- Projects Section -->
     <section class="section" id="projects">
       <div class="container">
@@ -207,32 +196,32 @@
             <div
               class="project-image"
               style="
-                background-image: url('https://images.unsplash.com/photo-1678845530864-18a666ca9762?q=80&w=928&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+                background-image: url('assets/images/oracle_ai_prophecy.png');
               "
             ></div>
             <div class="project-content">
-              <h3>NeuroFlow AI</h3>
+              <h3>Oracle Mode - AI Prophecy Generator</h3>
               <p>
-                An intelligent data visualization platform that transforms
-                massive datasets into living, breathing patterns. Combines
-                machine learning with interactive dashboards to help teams
-                discover insights in real time.
+                A futuristic, client-side PWA that generates mystical prophecies
+                using advanced randomness and immersive 3D backgrounds.
+                Experience animated Three.js visuals, scroll/swipe to reveal
+                prophecies, and install as a Progressive Web App for offline
+                access.
               </p>
               <div class="project-tech">
-                <span class="tech-tag">React</span>
-                <span class="tech-tag">Python</span>
-                <span class="tech-tag">TensorFlow</span>
-                <span class="tech-tag">D3.js</span>
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">Javascript</span>
               </div>
               <div class="project-links">
                 <a
-                  href="https://neuroflow-demo.vercel.app"
+                  href="https://francismul.github.io/futuristic_ai_prophecy_app/"
                   class="project-link"
                   target="_blank"
                   >Live Demo</a
                 >
                 <a
-                  href="https://github.com/francmul/neuroflow-ai"
+                  href="https://github.com/francismul/futuristic_ai_prophecy_app.git"
                   class="project-link"
                   target="_blank"
                   >GitHub</a
@@ -413,7 +402,7 @@
               console.error("❌ Service Worker registration failed:", err);
             });
         });
-    
+
         // Listen for messages from Service Worker
         navigator.serviceWorker.addEventListener("message", (event) => {
           if (event.data && event.data.type === "NEW_VERSION") {
@@ -421,7 +410,7 @@
           }
         });
       }
-    
+
       // Function to show update toast
       function showUpdateToast(version) {
         const toast = document.createElement("div");
@@ -442,14 +431,14 @@
           box-shadow: 0 2px 6px rgba(0,0,0,0.3);
           animation: fadeIn 0.3s ease;
         `;
-    
+
         // Reload when user clicks
         toast.onclick = () => {
           window.location.reload();
         };
-    
+
         document.body.appendChild(toast);
-    
+
         // Auto-hide after 10s if user doesn’t click
         setTimeout(() => {
           toast.style.opacity = "0";
