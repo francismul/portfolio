@@ -1,4 +1,4 @@
-const CACHE_VERSION = "v4";
+const CACHE_VERSION = "v10";
 const CACHE_NAME = `fm-portfolio-${CACHE_VERSION}`;
 const BASE = "/portfolio";
 
