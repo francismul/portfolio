@@ -1,0 +1,37 @@
+{
+  "name": "portfolio",
+  "version": "1.0.0",
+  "description": "A modern, interactive portfolio web app for Francis Mule, Software Engineer.",
+  "scripts": {
+    "start": "parcel src/index.html",
+    "build": "parcel build src/index.html --dist-dir dist --public-url ./ && cp src/robots.txt dist/robots.txt && cp src/offline.html dist/offline.html",
+    "build:obfuscated": "parcel build src/index.html --dist-dir dist --public-url ./ --no-source-maps && javascript-obfuscator dist/*.js --output dist --options-preset high-obfuscation && cp src/robots.txt dist/robots.txt && cp src/offline.html dist/offline.html",
+    "optimize-images": "node scripts/optimize-images.js",
+    "build:with-images": "pnpm run optimize-images && pnpm run build",
+    "build:obfuscated:with-images": "pnpm run optimize-images && pnpm run build:obfuscated",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/francismul/portfolio.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/francismul/portfolio/issues"
+  },
+  "homepage": "https://github.com/francismul/portfolio#readme",
+  "devDependencies": {
+    "@parcel/packager-raw-url": "2.16.0",
+    "@parcel/transformer-webmanifest": "2.16.0",
+    "@types/three": "^0.158.3",
+    "javascript-obfuscator": "^4.1.1",
+    "parcel": "^2.16.0",
+    "sharp": "^0.34.4",
+    "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "three": "^0.180.0"
+  }
+}

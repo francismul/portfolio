@@ -1,18 +1,31 @@
+import * as THREE from "three";
+
 (() => {
+  /* ========== SERVICE WORKER AUTO-REFRESH ========== */
+  // Listen for service worker updates and force refresh
+  navigator.serviceWorker?.addEventListener("message", (event) => {
+    if (event.data.type === "NEW_VERSION") {
+      console.log("🔄 New version available:", event.data.version);
+      console.log("🔄 Refreshing page to load latest content...");
+      // Force refresh to load new content
+      window.location.reload();
+    }
+  });
+
   /* ========== CUSTOM CURSOR ========== */
-  const cursor = document.querySelector(".cursor");
+  const cursor = document.querySelector(".cursor") as HTMLElement | null;
   if (cursor) {
     let mouseX = 0,
       mouseY = 0;
 
-    document.addEventListener("mousemove", (e) => {
+    document.addEventListener("mousemove", (e: MouseEvent) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
     });
 
     function updateCursor() {
-      cursor.style.left = `${mouseX - 10}px`;
-      cursor.style.top = `${mouseY - 10}px`;
+      cursor!.style.left = `${mouseX - 10}px`;
+      cursor!.style.top = `${mouseY - 10}px`;
       requestAnimationFrame(updateCursor);
     }
     updateCursor();
@@ -30,8 +43,17 @@
 
   /* ========== THREE.JS BACKGROUND ========== */
   function initThree() {
-    const container = document.getElementById("three-container");
-    if (!container || typeof THREE === "undefined") return;
+    if (typeof THREE === "undefined") {
+      console.error(
+        "THREE.js failed to load. Background will not be initialized."
+      );
+      return;
+    }
+    
+    const container = document.getElementById(
+      "three-container"
+    ) as HTMLElement | null;
+    if (!container) return;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -45,7 +67,7 @@
     container.appendChild(renderer.domElement);
 
     // Particle geometry
-    const vertices = [];
+    const vertices: number[] = [];
     for (let i = 0; i < 5000; i++) {
       vertices.push(
         Math.random() * 2000 - 1000,
@@ -98,7 +120,9 @@
   revealSections();
 
   /* ========== SCROLL PROGRESS BAR ========== */
-  const scrollProgress = document.querySelector(".scroll-progress");
+  const scrollProgress = document.querySelector(
+    ".scroll-progress"
+  ) as HTMLElement | null;
   if (scrollProgress) {
     window.addEventListener("scroll", () => {
       const scrollTop = window.scrollY;
@@ -109,25 +133,27 @@
   }
 
   /* ========== MATRIX RAIN EFFECT ========== */
-  const matrixCanvas = document.querySelector(".matrix-bg");
+  const matrixCanvas = document.querySelector(
+    ".matrix-bg"
+  ) as HTMLCanvasElement | null;
   if (matrixCanvas) {
-    const ctx = matrixCanvas.getContext("2d");
+    const ctx = matrixCanvas.getContext("2d")!;
     const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     const fontSize = 16;
     let columns = Math.floor(matrixCanvas.width / fontSize);
-    let drops = Array(columns).fill(1);
+    let drops: number[] = Array(columns).fill(1);
 
     function resizeCanvas() {
-      matrixCanvas.width = window.innerWidth;
-      matrixCanvas.height = window.innerHeight;
-      columns = Math.floor(matrixCanvas.width / fontSize);
+      matrixCanvas!.width = window.innerWidth;
+      matrixCanvas!.height = window.innerHeight;
+      columns = Math.floor(matrixCanvas!.width / fontSize);
       drops = Array(columns).fill(1);
     }
     resizeCanvas();
 
     function drawMatrix() {
       ctx.fillStyle = "rgba(10, 10, 10, 0.1)";
-      ctx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      ctx.fillRect(0, 0, matrixCanvas!.width, matrixCanvas!.height);
       ctx.font = `${fontSize}px monospace`;
       ctx.fillStyle = "#00ff88";
 
@@ -135,7 +161,7 @@
         const text = letters[Math.floor(Math.random() * letters.length)];
         ctx.fillText(text, i * fontSize, drops[i] * fontSize);
         if (
-          drops[i] * fontSize > matrixCanvas.height &&
+          drops[i] * fontSize > matrixCanvas!.height &&
           Math.random() > 0.975
         ) {
           drops[i] = 0;
@@ -150,7 +176,9 @@
   }
 
   /* ========== FLOATING PARTICLES ========== */
-  const particlesDiv = document.querySelector(".particles");
+  const particlesDiv = document.querySelector(
+    ".particles"
+  ) as HTMLElement | null;
   if (particlesDiv) {
     for (let i = 0; i < 80; i++) {
       const particle = document.createElement("div");
@@ -163,17 +191,25 @@
   }
 
   /* ========== TERMINAL EASTER EGG ========== */
-  const terminalOutput = document.getElementById("terminal-output");
-  const terminalForm = document.getElementById("terminal-form");
-  const terminalInput = document.getElementById("terminal-input");
-  const history = [];
+  const terminalOutput = document.getElementById(
+    "terminal-output"
+  ) as HTMLElement | null;
+  const terminalForm = document.getElementById(
+    "terminal-form"
+  ) as HTMLFormElement | null;
+  const terminalInput = document.getElementById(
+    "terminal-input"
+  ) as HTMLInputElement | null;
+  const history: string[] = [];
 
-  function printTerminal(text, color = "#cccccc") {
-    terminalOutput.innerHTML += `<div style='color:${color}'>${text}</div>`;
-    terminalOutput.scrollTop = terminalOutput.scrollHeight;
+  function printTerminal(text: string, color = "#cccccc") {
+    if (terminalOutput) {
+      terminalOutput.innerHTML += `<div style='color:${color}'>${text}</div>`;
+      terminalOutput.scrollTop = terminalOutput.scrollHeight;
+    }
   }
 
-  function handleCommand(cmd) {
+  function handleCommand(cmd: string) {
     const command = cmd.trim().toLowerCase();
     switch (command) {
       case "help":
@@ -192,11 +228,11 @@
         );
         break;
       case "clear":
-        terminalOutput.innerHTML = "";
+        if (terminalOutput) terminalOutput.innerHTML = "";
         break;
       case "sudo hire_francis":
         printTerminal(
-          '<span style="color:#00ff88">Access Granted: Let’s build something extraordinary 🚀.</span>'
+          '<span style="color:#00ff88">Access Granted: Let\'s build something extraordinary 🚀.</span>'
         );
         break;
       case "":
@@ -209,7 +245,7 @@
   }
 
   if (terminalForm && terminalInput && terminalOutput) {
-    terminalForm.addEventListener("submit", (e) => {
+    terminalForm.addEventListener("submit", (e: Event) => {
       e.preventDefault();
       const value = terminalInput.value;
       printTerminal(
@@ -220,7 +256,7 @@
       terminalInput.value = "";
     });
 
-    terminalInput.addEventListener("keydown", (e) => {
+    terminalInput.addEventListener("keydown", (e: KeyboardEvent) => {
       if (e.key === "ArrowUp" && history.length > 0) {
         terminalInput.value = history[history.length - 1];
       }
@@ -241,8 +277,8 @@
   }
 
   /* ========== MOBILE NAVIGATION (needs cleanup) ========== */
-  const navToggle = document.querySelector(".nav-toggle");
-  const navMenu = document.querySelector(".nav-menu");
+  const navToggle = document.querySelector(".nav-toggle") as HTMLElement | null;
+  const navMenu = document.querySelector(".nav-menu") as HTMLElement | null;
 
   if (navToggle && navMenu) {
     navToggle.addEventListener("click", () => {

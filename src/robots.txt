@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Disallow access to development and build files
+Disallow: /node_modules/
+Disallow: /.git/
+Disallow: /.github/
+Disallow: /scripts/
+Disallow: /src/
+Disallow: /dist/
+Disallow: /.parcel-cache/
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /pnpm-lock.yaml
+Disallow: /tsconfig.json
+Disallow: /README.md
+Disallow: /.gitignore
+
+# Allow access to all content and assets
+Allow: /assets/
+
+# Sitemap (uncomment when you create one)
+# Sitemap: https://francismul.github.io/portfolio/sitemap.xml
