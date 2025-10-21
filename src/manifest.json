@@ -6,6 +6,7 @@
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#00ff88",
+  "scope": "./",
   "icons": [
     {
       "src": "assets/images/icons/android/android-launchericon-192-192.png",

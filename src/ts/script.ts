@@ -1,12 +1,12 @@
-import * as THREE from 'three';
+import * as THREE from "three";
 
 (() => {
   /* ========== SERVICE WORKER AUTO-REFRESH ========== */
   // Listen for service worker updates and force refresh
-  navigator.serviceWorker?.addEventListener('message', (event) => {
-    if (event.data.type === 'NEW_VERSION') {
-      console.log('🔄 New version available:', event.data.version);
-      console.log('🔄 Refreshing page to load latest content...');
+  navigator.serviceWorker?.addEventListener("message", (event) => {
+    if (event.data.type === "NEW_VERSION") {
+      console.log("🔄 New version available:", event.data.version);
+      console.log("🔄 Refreshing page to load latest content...");
       // Force refresh to load new content
       window.location.reload();
     }
@@ -43,7 +43,16 @@ import * as THREE from 'three';
 
   /* ========== THREE.JS BACKGROUND ========== */
   function initThree() {
-    const container = document.getElementById("three-container") as HTMLElement | null;
+    if (typeof THREE === "undefined") {
+      console.error(
+        "THREE.js failed to load. Background will not be initialized."
+      );
+      return;
+    }
+    
+    const container = document.getElementById(
+      "three-container"
+    ) as HTMLElement | null;
     if (!container) return;
 
     const scene = new THREE.Scene();

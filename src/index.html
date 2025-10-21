@@ -45,23 +45,6 @@
       sizes="76x76"
       href="assets/images/icons/ios/76.png"
     />
-
-    <script>
-      // Check connectivity and redirect if offline
-      function checkOnlineStatus() {
-        if (!navigator.onLine) {
-          window.location.href = "offline.html";
-        }
-      }
-
-      // Check on page load
-      checkOnlineStatus();
-
-      // Listen for online/offline events
-      window.addEventListener("offline", function () {
-        window.location.href = "offline.html";
-      });
-    </script>
     <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
@@ -275,7 +258,7 @@
               </div>
               <div class="project-links">
                 <a
-                  href="!#"
+                  href="javascript:void(0)"
                   class="project-link"
                   target="_blank"
                   aria-disabled="true"
@@ -316,7 +299,7 @@
               </div>
               <div class="project-links">
                 <a
-                  href="!#"
+                  href="javascript:void(0)"
                   class="project-link"
                   target="_blank"
                   aria-disabled="true"
@@ -324,7 +307,7 @@
                   >Live Demo</a
                 >
                 <a
-                  href="!#"
+                  href="javascript:void(0)"
                   class="project-link"
                   target="_blank"
                   aria-disabled="true"
@@ -391,7 +374,7 @@
 
             <div class="contact-item truncate-single">
               <h4>LinkedIn</h4>
-              <a href="!#" target="_blank">@francismule-dev</a>
+              <a href="javascript:void(0)" target="_blank">@francismule-dev</a>
             </div>
 
             <div class="contact-item truncate-single">
@@ -403,7 +386,7 @@
 
             <div class="contact-item truncate-single">
               <h4>Twitter</h4>
-              <a href="!#" target="_blank">@francmul</a>
+              <a href="javascript:void(0)" target="_blank">@francmul</a>
             </div>
           </div>
         </div>
@@ -419,9 +402,7 @@
             .register(new URL("service-worker.js", import.meta.url))
             .then(function (reg) {})
             .catch(function (err) {
-              throw new Error("Service Worker registration failed:", {
-                cause: err,
-              });
+              console.error("Service Worker registration failed:", err);
             });
         });
 
