@@ -353,6 +353,8 @@ nav {
   background: linear-gradient(45deg, #ff0080, #0088ff);
   position: relative;
   overflow: hidden;
+  background-position: top;
+  background-size: cover;
 }
 
 .project-image::before {
@@ -363,6 +365,46 @@ nav {
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.3);
+}
+
+/* Optimized Project Background Images */
+.oracle-prophecy-bg {
+  background-image:
+    image-set(
+      url('../assets/images/optimized/oracle_ai_prophecy.webp') type('image/webp'),
+      url('../assets/images/optimized/oracle_ai_prophecy.jpg') type('image/jpeg')
+    );
+}
+
+.password-generator-bg {
+  background-image:
+    image-set(
+      url('../assets/images/optimized/screenshots/password_generator.webp') type('image/webp'),
+      url('../assets/images/optimized/screenshots/password_generator.jpg') type('image/jpeg')
+    );
+}
+
+.wild-kingdom-bg {
+  background-image:
+    image-set(
+      url('../assets/images/optimized/screenshots/wild_kingdom.webp') type('image/webp'),
+      url('../assets/images/optimized/screenshots/wild_kingdom.jpg') type('image/jpeg')
+    );
+}
+
+/* Fallback for browsers that don't support image-set() */
+@supports not (background-image: image-set(url('test.webp') type('image/webp'))) {
+  .oracle-prophecy-bg {
+    background-image: url('../assets/images/optimized/oracle_ai_prophecy.jpg');
+  }
+
+  .password-generator-bg {
+    background-image: url('../assets/images/optimized/screenshots/password_generator.jpg');
+  }
+
+  .wild-kingdom-bg {
+    background-image: url('../assets/images/optimized/screenshots/wild_kingdom.jpg');
+  }
 }
 
 .project-content {
@@ -666,4 +708,18 @@ nav {
   50% {
     border-color: #00ff88;
   }
+}
+
+.truncate-single {
+  white-space: nowrap; /* Prevents text wrapping */
+  overflow: hidden; /* Hides overflow */
+  text-overflow: ellipsis; /* Adds ellipsis */
+}
+
+.truncate-multi {
+  display: -webkit-box; /* Enables flexbox-like behavior */
+  -webkit-line-clamp: 3; /* Number of lines before truncation */
+  line-clamp: 3; /* Standard property for compatibility */
+  -webkit-box-orient: vertical; /* Orients the box vertically */
+  overflow: hidden; /* Hides overflow */
 }

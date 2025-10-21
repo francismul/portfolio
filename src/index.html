@@ -6,13 +6,63 @@
     <title>Francis Mule - Software Engineer</title>
     <link rel="manifest" href="manifest.json" />
     <meta name="theme-color" content="#00ff88" />
+
+    <!-- Favicons -->
     <link
-      rel="shortcut icon"
-      href="assets/images/favicon.ico"
+      rel="icon"
       type="image/x-icon"
+      href="assets/images/icons/ios/16.png"
     />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <link rel="stylesheet" href="assets/css/styles.css" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="assets/images/icons/ios/32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="assets/images/icons/ios/16.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="assets/images/icons/ios/180.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="152x152"
+      href="assets/images/icons/ios/152.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="120x120"
+      href="assets/images/icons/ios/120.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="76x76"
+      href="assets/images/icons/ios/76.png"
+    />
+
+    <script>
+      // Check connectivity and redirect if offline
+      function checkOnlineStatus() {
+        if (!navigator.onLine) {
+          window.location.href = "offline.html";
+        }
+      }
+
+      // Check on page load
+      checkOnlineStatus();
+
+      // Listen for online/offline events
+      window.addEventListener("offline", function () {
+        window.location.href = "offline.html";
+      });
+    </script>
+    <link rel="stylesheet" href="css/styles.css" />
   </head>
   <body>
     <div class="cursor"></div>
@@ -45,22 +95,6 @@
         </div>
       </div>
     </nav>
-
-    <!-- Hero Section -->
-    <!-- <section class="hero" id="hero">
-      <div id="three-container"></div>
-      <div class="hero-content">
-        <div class="status-indicator">
-          <span class="status-pill">
-            <span class="status-dot"></span>
-            <span class="status-text">SYSTEM ONLINE</span>
-          </span>
-        </div>
-        <h1 class="glitch" data-text="Francis Mule">Francis Mule</h1>
-        <p>Digital Architect • Code Poet • Future Builder</p>
-        <a href="#about" class="cta-button">Enter the Matrix</a>
-      </div>
-    </section> -->
 
     <!-- About Section -->
     <section class="section" id="about">
@@ -193,12 +227,7 @@
         <div class="projects-grid">
           <!-- Project 1 -->
           <div class="project-card">
-            <div
-              class="project-image"
-              style="
-                background-image: url('assets/images/oracle_ai_prophecy.png');
-              "
-            ></div>
+            <div class="project-image oracle-prophecy-bg"></div>
             <div class="project-content">
               <h3>Oracle Mode - AI Prophecy Generator</h3>
               <p>
@@ -232,35 +261,29 @@
 
           <!-- Project 2 -->
           <div class="project-card">
-            <div
-              class="project-image"
-              style="
-                background-image: url('https://images.unsplash.com/photo-1637664067109-a6a00840d894?q=80&w=1032&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-              "
-            ></div>
+            <div class="project-image password-generator-bg"></div>
             <div class="project-content">
-              <h3>MetaVerse Studio</h3>
+              <h3>Password Generator</h3>
               <p>
-                A WebXR-powered creation suite for immersive 3D experiences.
-                Drag-and-drop scene building meets scripting flexibility,
-                enabling creators to build their own metaverse spaces directly
-                in the browser.
+                A comprehensive password generator application with both console
+                and graphical user interface (GUI) versions. Creates secure,
+                random passwords with customizable character sets and entropy
+                calculation
               </p>
               <div class="project-tech">
-                <span class="tech-tag">Three.js</span>
-                <span class="tech-tag">WebXR</span>
-                <span class="tech-tag">Node.js</span>
-                <span class="tech-tag">Socket.io</span>
+                <span class="tech-tag">JAVA</span>
               </div>
               <div class="project-links">
                 <a
-                  href="https://metaverse-studio-demo.vercel.app"
+                  href="!#"
                   class="project-link"
                   target="_blank"
+                  aria-disabled="true"
+                  style="cursor: not-allowed"
                   >Live Demo</a
                 >
                 <a
-                  href="https://github.com/francmul/metaverse-studio"
+                  href="https://github.com/francismul/Password-Generator"
                   class="project-link"
                   target="_blank"
                   >GitHub</a
@@ -293,15 +316,19 @@
               </div>
               <div class="project-links">
                 <a
-                  href="https://cryptoledger-demo.vercel.app"
+                  href="!#"
                   class="project-link"
                   target="_blank"
+                  aria-disabled="true"
+                  style="cursor: not-allowed"
                   >Live Demo</a
                 >
                 <a
-                  href="https://github.com/francmul/cryptoledger-pro"
+                  href="!#"
                   class="project-link"
                   target="_blank"
+                  aria-disabled="true"
+                  style="cursor: not-allowed"
                   >GitHub</a
                 >
               </div>
@@ -310,35 +337,28 @@
 
           <!-- Project 4 -->
           <div class="project-card">
-            <div
-              class="project-image"
-              style="
-                background-image: url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?q=80&w=870&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-              "
-            ></div>
+            <div class="project-image wild-kingdom-bg"></div>
             <div class="project-content">
-              <h3>QuantumSync</h3>
+              <h3>Wild Kingdom</h3>
               <p>
-                A futuristic collaboration platform with real-time
-                synchronization powered by operational transforms. Think Google
-                Docs, but faster, offline-first, and conflict-free across every
-                device.
+                An immersive web application showcasing the Big Five African
+                animals with smooth animations and interactive galleries.
               </p>
               <div class="project-tech">
-                <span class="tech-tag">Vue.js</span>
-                <span class="tech-tag">WebRTC</span>
-                <span class="tech-tag">PostgreSQL</span>
-                <span class="tech-tag">Docker</span>
+                <span class="tech-tag">HTML</span>
+                <span class="tech-tag">CSS</span>
+                <span class="tech-tag">TypeScript</span>
+                <span class="tech-tag">GSAP</span>
               </div>
               <div class="project-links">
                 <a
-                  href="https://quantumsync-demo.vercel.app"
+                  href="https://francismul.github.io/wild_kingdom/"
                   class="project-link"
                   target="_blank"
                   >Live Demo</a
                 >
                 <a
-                  href="https://github.com/francmul/quantumsync"
+                  href="https://github.com/francismul/wild_kingdom"
                   class="project-link"
                   target="_blank"
                   >GitHub</a
@@ -362,44 +382,46 @@
           </p>
 
           <div class="contact-grid">
-            <div class="contact-item">
+            <div class="contact-item truncate-single">
               <h4>Email</h4>
               <a href="mailto:francismule300@gmail.com"
                 >francismule300@gmail.com</a
               >
             </div>
 
-            <div class="contact-item">
+            <div class="contact-item truncate-single">
               <h4>LinkedIn</h4>
-              <a href="#" target="_blank">@francismule-dev</a>
+              <a href="!#" target="_blank">@francismule-dev</a>
             </div>
 
-            <div class="contact-item">
+            <div class="contact-item truncate-single">
               <h4>GitHub</h4>
-              <a href="#" target="_blank">@francmul</a>
+              <a href="https://github.com/francismul" target="_blank"
+                >@francismul</a
+              >
             </div>
 
-            <div class="contact-item">
+            <div class="contact-item truncate-single">
               <h4>Twitter</h4>
-              <a href="#" target="_blank">@francmul</a>
+              <a href="!#" target="_blank">@francmul</a>
             </div>
           </div>
         </div>
       </div>
     </section>
 
-    <script src="assets/js/script.js"></script>
-    <script>
+    <script src="ts/script.ts" type="module"></script>
+    <script type="module">
       // Register service worker for PWA
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
           navigator.serviceWorker
-            .register("service-worker.js")
-            .then(function (reg) {
-              console.log("✅ Service Worker registered:", reg);
-            })
+            .register(new URL("service-worker.js", import.meta.url))
+            .then(function (reg) {})
             .catch(function (err) {
-              console.error("❌ Service Worker registration failed:", err);
+              throw new Error("Service Worker registration failed:", {
+                cause: err,
+              });
             });
         });
 
